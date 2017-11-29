@@ -1,0 +1,9 @@
+<%= form_for(@member) do |f| %>
+  <%= f.label "名前" %>
+  <%= f.text_field :name %> <br>
+
+  <%= f.label "社会人ですか？" %>
+  <%= f.check_box(:working_flg, {checked: true}, "true", "false") %><br>
+
+  <%= f.submit "登録" %>
+<% end %>

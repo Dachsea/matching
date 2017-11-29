@@ -1,0 +1,14 @@
+<h1>メンバー追加</h1>
+<% unless @members.nil? %>
+  <ul>
+    <% @members.each do |member| %>
+      <li>
+        <%= member.name %> | 
+        <%= link_to "編集", edit_member_path(member) %> | 
+        <%= link_to "削除", member_path(member), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "メンバー追加", new_member_path %>
