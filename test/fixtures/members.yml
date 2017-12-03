@@ -1,9 +1,25 @@
-worker:
-  name: "Worker"
+daichi:
+  name: "Daichi"
+  working_flg: false
+
+misaki:
+  name: "Misaki"
+  working_flg: false
+
+kaorin:
+  name: "Kaorin"
   working_flg: true
 
-student:
-  name: "Student"
+kakoi:
+  name: "kakoi"
+  working_flg: true
+
+prince:
+  name: "Prince"
+  working_flg: false
+
+hattori:
+  name: "Hattori"
   working_flg: false
 
 <% 30.times do |n| %>

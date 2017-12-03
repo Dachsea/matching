@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
+round_in_two_members:
+  name: "Round in two members"
   date: 2017-12-03
-  group_limit: 1
+  group_limit: 2
 
-two:
-  name: MyString
+round_in_four_members:
+  name: "Round in four members"
   date: 2017-12-03
-  group_limit: 1
+  group_limit: 4

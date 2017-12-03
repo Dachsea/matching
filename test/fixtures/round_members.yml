@@ -1,11 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% 30.times do |n| %>
+two_round_member_<%= n %>:
+  round_id: 1
+  member_id: n
+<% end %>
 
-one:
-  round: one
-  member: one
-  group_number: 1
-
-two:
-  round: two
-  member: two
-  group_number: 1
+<% 30.times do |n| %>
+four_round_member_<%= n %>:
+  round_id: 2
+  member_id: n
+<% end %>
