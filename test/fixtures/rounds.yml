@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date: 2017-12-03
+  group_limit: 1
+
+two:
+  name: MyString
+  date: 2017-12-03
+  group_limit: 1
