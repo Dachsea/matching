@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  round: one
+  member: one
+  group_number: 1
+
+two:
+  round: two
+  member: two
+  group_number: 1

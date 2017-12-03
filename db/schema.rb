@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171203053446) do
+ActiveRecord::Schema.define(version: 20171203054452) do
 
   create_table "members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",                       null: false
     t.boolean  "working_flg", default: true, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "round_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "round_id"
+    t.integer  "member_id"
+    t.integer  "group_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["member_id"], name: "index_round_members_on_member_id", using: :btree
+    t.index ["round_id"], name: "index_round_members_on_round_id", using: :btree
   end
 
   create_table "rounds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -27,4 +37,6 @@ ActiveRecord::Schema.define(version: 20171203053446) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "round_members", "members"
+  add_foreign_key "round_members", "rounds"
 end
