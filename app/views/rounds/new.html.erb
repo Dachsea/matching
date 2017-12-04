@@ -1,2 +1,18 @@
-<h1>Rounds#new</h1>
-<p>Find me in app/views/rounds/new.html.erb</p>
+<h1>新規ラウンド作成</h1>
+<%= form_for @round do |f| %>
+  <%= f.label "ラウンド名" %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label "何人グループにしますか?" %>
+  <%= f.number_field :group_limit %><br>
+
+  <%= f.label "実施日" %>
+  <%= f.date_field :date, value: Date.today %>
+
+  <hr>
+
+  <%= f.collection_check_boxes(:member_ids, Member.all, :id, :name, checked: Member.ids) do |m|%>
+    <%= m.label {m.check_box + m.text} %><br>
+  <% end %>
+  <%= f.submit "登録" %>
+<% end %>

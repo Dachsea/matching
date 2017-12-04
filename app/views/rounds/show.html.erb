@@ -1,0 +1,6 @@
+<h1><%= @round.name %></h1>
+
+<p>1グループ <%= @round.group_limit %> 人</p>
+<% @round.members.each do |member| %>
+  <%= member.name %><br>
+<% end %>
