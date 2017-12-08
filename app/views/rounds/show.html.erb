@@ -4,3 +4,25 @@
 <% @round.members.each do |member| %>
   <%= member.name %><br>
 <% end %>
+
+<table>
+  <caption><%= @round.name %></caption>
+  <thead>
+    <tr>
+      <th>テーブル番号</th>
+      <% @round.group_limit.times do |n| %>
+      <th><%= n+1 %>人目</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @group_members.each do |group_number, members| %>
+      <tr>
+        <td><%= group_number %></td>
+        <% members.each do |member| %>
+          <td><%= member.name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

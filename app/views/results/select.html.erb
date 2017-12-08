@@ -1,0 +1,5 @@
+<h1>出力する日付を選んでください</h1>
+<%= form_tag '/results/table' do %>
+  <%= date_field_tag :date, value: Date.today %>
+  <%= submit_tag "出力" %>
+<% end %>
