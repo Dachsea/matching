@@ -17,6 +17,7 @@ class Round < ApplicationRecord
     end
   end
 
+  #[1: [member1,member2], 2: [member3,member4]]
   def get_group_members
     num_of_groups = RoundMember.where(round_id: self.id).order(:group_number).last.group_number
     group_members = {}
@@ -27,5 +28,18 @@ class Round < ApplicationRecord
     end
 
     return group_members
+  end
+
+  #[name1,name2,name3]
+  def get_member_names
+    self.members.map{ |member| member.name}
+  end
+
+  def get_group_number_by_member(member)
+    unless self.round_members.find_by(member_id: member).blank?
+      self.round_members.find_by(member_id: member).group_number
+    else
+      nil
+    end
   end
 end

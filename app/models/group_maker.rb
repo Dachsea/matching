@@ -2,6 +2,8 @@ class GroupMaker
   require 'byebug'
   attr_accessor :round, :group_limit, :members, :matched_groups
 
+  MATCHING_LOOP_LIMIT = 1000
+
   def initialize(args)
     @round = args[:round]
     @group_limit = args[:group_limit] || default_group_limit
@@ -9,35 +11,52 @@ class GroupMaker
     @matched_groups = []
   end
 
-  #Memberの配列をreturn
   def matching
+    MATCHING_LOOP_LIMIT.times do |n|
+      create_matched_groups
+      break if matched_groups.length == (members.length / group_limit)
+    end
+    puts "#{matched_groups.length}"
+    puts "(members.length / group_limit)"
+    return matched_groups
+  end
+
+  #Memberの配列をreturn
+  def create_matched_groups
     reset_matched_groups
 
-    #unselected_membersはidの配列
-    unselected_members = members.ids.to_a
+    #unselected_member_idsはidの配列
+    unselected_member_ids = members.ids.to_a
 
-    members.each do |member|
-      if unselected_members.include?(member.id)
-        unselected_members.delete(member.id)
+    members.shuffle.each do |member|
+      if unselected_member_ids.include?(member.id)
+        unselected_member_ids.delete(member.id)
       else
         next
       end
 
-      expected_partner = Member.where(id: unselected_members).where.not(id: other_round_group_members(member)).sample(group_limit-1)
+      expected_partners = []
+      (group_limit-1).times do |n|
+        expected_partners << matchable_partner(unselected_member_ids, member)
+        #マッチ済みグループのメンバーをunselected_member_idsから抜く
+        unselected_member_ids -= expected_partners.to_a.flatten.map{|item| item.id}
+      end
 
       #自分とそれ以外のメンバーをマッチ済みグループにいれる
       matched_group = []
-      matched_group.push(member, expected_partner).flatten!
-
-      #マッチ済みグループのメンバーをunselected_membersから抜く
-      unselected_members -= expected_partner.to_a.map{|item| item.id}
+      matched_group.push(member, expected_partners).flatten!
 
       #グループが完成したらmatched_groupsにいれる
-      matched_groups << matched_group
+      @matched_groups << matched_group
     end
-    return matched_groups
   end
 
+  #expected_membersに候補になりえるmember, targetに自分をいれる
+  def matchable_partner(expected_members, target)
+    Member.where(id: expected_members).where.not(id: other_round_group_members(target)).sample(1)
+  end
+
+  #自分が一度所属したグループのメンバーを取得
   def other_round_group_members(member)
     #自ラウンド以外のラウンドで、自分の所属しているグループを探す
     group_numbers = RoundMember.where(round_id: other_round_ids).where(member_id: member).pluck(:group_number).compact

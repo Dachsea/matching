@@ -1,0 +1,22 @@
+<h1><%= @date %>のマッチング表</h1>
+
+<table border="1" align="left">
+    <thead>
+    <tr>
+      <th>お名前</th>
+      <% @rounds.each do |round| %>
+        <th><%= round.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <% @rounds.each do |round| %>
+          <td><%= round.get_group_number_by_member(member) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

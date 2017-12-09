@@ -1,4 +1,11 @@
 <h1>ラウンド一覧</h1>
-<% @rounds.each do |round| %>
-  <%= link_to round.name, round_path(round) %><br>
-<% end %>
+<ul>
+    <% @rounds.each do |round| %>
+      <li>
+        <%= link_to round.name, round_path(round) %> | 
+        <%= link_to "編集", edit_round_path(round) %> | 
+        <%= link_to "削除", round_path(round), method: :delete %>
+      </li>
+    <% end %>
+</ul>
+

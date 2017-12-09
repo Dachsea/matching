@@ -24,6 +24,25 @@ class RoundsController < ApplicationController
   end
 
   def edit
+    @round = Round.find(params[:id])
+  end
+
+  def update
+    @round = Round.find(params[:id])
+    if @round.update_attributes(round_params) && @round.create_groups
+      flash[:success] = "編集が完了しました"
+      redirect_to root_url
+    else
+      flash[:danger] = "編集に失敗しました"
+      render edit
+    end
+  end
+
+  def destroy
+    round = Round.find(params[:id])
+    round.destroy
+    flash[:success] = "#{round.name}の削除が完了しました"
+    redirect_to root_url
   end
 
   private

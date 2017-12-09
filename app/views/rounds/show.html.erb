@@ -1,11 +1,12 @@
 <h1><%= @round.name %></h1>
 
-<p>1グループ <%= @round.group_limit %> 人</p>
+<p><%= @round.group_limit %>人グループ</p>
+<p><%= link_to "もう一回シャッフル", url_for(controller: :results, action: :reshuffle, id: @round.id) %></p>
 <% @round.members.each do |member| %>
   <%= member.name %><br>
 <% end %>
-
-<table>
+<hr>
+<table border="1" align="left">
   <caption><%= @round.name %></caption>
   <thead>
     <tr>
